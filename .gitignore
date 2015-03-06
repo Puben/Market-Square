@@ -1,4 +1,7 @@
 node_modules
+bower_components
+node_modules.7z
+bower_components.7z
 dist
 .tmp
 .sass-cache
