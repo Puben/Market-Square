@@ -17,15 +17,6 @@ app.factory("chatMessages", ["$firebaseArray",
   }
 ]);
 
-app.factory("users", ["$firebaseArray",
-  function($firebaseArray) {
-    var ref = new Firebase("https://marketsquare.firebaseio.com/users/");
-
-
-    // this uses AngularFire to create the synchronized array
-    return $firebaseArray(ref);
-  }
-]);
 
 app.config(function($routeProvider) {
   $routeProvider
@@ -93,32 +84,34 @@ app.controller("AboutCtrl", function($scope) {
 });
 
 // USERS CONTROLLER
-app.controller("UsersCtrl", ["$scope", "users",
-  function($scope, users) {
-    console.log("-->UsersCtrl loaded -");
-    console.log(JSON.stringify(users.length));
-    $scope.user = "Choose name";
-    $scope.id = "1";
-    $scope.users = users;
+app.controller("UsersCtrl", ["$scope", "$firebaseArray",
+        function($scope, $firebaseArray) {
+          //CREATE A FIREBASE REFERENCE
+          var ref = new Firebase("https://marketsquare.firebaseio.com/users");
+          console.log("---> In UsersCtrl and loaded firebase reference!");
+          // GET MESSAGES AS AN ARRAY
+          $scope.users = $firebaseArray(ref);
 
+          //ADD USER METHOD
+          $scope.addUser = function(e) {
 
+          $scope.users.$loaded().then(function(users) {
 
-    $scope.addUser = function() {
-      // calling $add on a synchronized array is like Array.push(),
-      // except that it saves the changes to Firebase!
-      $scope.users.$add({
-          user: $scope.user,
-          id: $scope.id,
-          locationX: "testX",
-          locationY: "testY"
+            $scope.users.$add({
+            user: $scope.user,
+            userId: users.length + 1,
+            pin: "1234"
+            });
+
+            })
+          }
         }
-      )};
-  }
-]);
-
+      ]);
+  
 
 
 app.controller('contactController', function($scope) {
   console.log("--> In contactController");
   $scope.message = 'Contact us! JK. This is just a demo.';
 });
+  
