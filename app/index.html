@@ -1,41 +1,44 @@
 <!doctype html>
 <html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/firebase/firebase.js"></script>
-    <script src="bower_components/angularfire/dist/angularfire.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/firebase/firebase.js"></script>
+  <script src="bower_components/angularfire/dist/angularfire.js"></script>
+  <script src="bower_components/geofire/dist/geofire.js"></script>
+  <script src="bower_components/angularGeoFire/src/angularGeoFire.js"></script>
+  <script src="bower_components/rsvp/rsvp.min.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 
-  </head>
-  <body>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <!-- MAP -->
+</head>
+<body ng-app="sampleApp">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- MAP -->
 <div id="map-canvas"></div>
 <!-- SIDE BAR -->
 <div id="sidebar-wrapper"></div>
@@ -47,47 +50,55 @@
 
   <section class="content">
     <h3>Market Square?</h3>
-      <p>
-      <a target="_blank" href="http://kea.dk">KEA</a>
-      1st. semester project on the Software Development PBA. Consider this page under development and in heavy beta.
-      All data supplied is subject to the public.
-      </p>
+    <a target="_blank" href="http://kea.dk">KEA</a>
+    <div ng-controller="AboutCtrl">
+     <p> <a href="http://kea.dk"> </a>{{data}}</p>
 
-      <h3>Market Square?</h3>
-      <div ng-app="sampleApp" ng-controller="ChatCtrl">
-        <form ng-submit="addMessage()">
-          <input type="text" ng-model="message">
-          <input type="submit" value="Add Message">
-        </form>
-
-        <ul class="chatbox" style="width: 250px; height: 150px; overflow: auto;">
-          <li ng-repeat="message in messages">{{ message.from }}: {{ message.content }}</li>
-        </ul>
-      </div>
-
-      <h3>Market Square?</h3>
-      <div ng-app="nameApp" ng-controller="NameCtrl">
+      <h3>User:</h3>
+      <div ng-controller="UsersCtrl">
         <form ng-submit="addUser()">
           <input type="text" ng-model="user">
           <input type="submit" value="Add User">
         </form>
 
         <ul class="chatbox" style="width: 250px; height: 150px; overflow: auto;">
-          <li ng-repeat="message in messages">{{ user.from }}: {{ user.key }}</li>
+          <li ng-repeat="user in users">{{ user.user }}: {{ user.locationX }}</li>
         </ul>
       </div>
+      <div class="container">
+      </div>
+    </div>
+    Click the button to get your coordinates.
+    <p>
+      <button onclick="getLocation()">Try It</button>
+    <div id="demo"></div>
+
+    <h3>Chat:</h3>
+    <div ng-controller="ChatCtrl">
+      <form ng-submit="addMessage()">
+        <input type="text" ng-model="message">
+        <input type="submit" value="Add Message">
+      </form>
+
+      <ul class="chatbox" style="width: 250px; height: 150px; overflow: auto;">
+        <li ng-repeat="message in messages">{{ message.from }}: {{ message.content }}</li>
+      </ul>
+    </div>
+
+    <h3>Market Square?</h3>
+
+
 
   </section>
 
 </article>
 
-    <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAmdqaJJ5Aalm11upRqgRyfvCYAwO2LRY"></script>
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAmdqaJJ5Aalm11upRqgRyfvCYAwO2LRY"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-      <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<!-- endbuild -->
 </body>
 </html>

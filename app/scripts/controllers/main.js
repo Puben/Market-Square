@@ -3,10 +3,10 @@
 console.log("in main.js");
 
 // define our app and dependencies (remember to include firebase!)
-var app = angular.module("sampleApp", ["firebase"]);
+var app = angular.module("sampleApp", ["firebase", 'ngRoute']);
 /*
-var usserApp = angular.module("nameApp"), ["firebase"]);
-*/
+ var usserApp = angular.module("nameApp"), ["firebase"]);
+ */
 // this factory returns a synchronized array of chat messages
 app.factory("chatMessages", ["$firebaseArray",
   function($firebaseArray) {
@@ -17,12 +17,48 @@ app.factory("chatMessages", ["$firebaseArray",
   }
 ]);
 
+app.factory("users", ["$firebaseArray",
+  function($firebaseArray) {
+    var ref = new Firebase("https://marketsquare.firebaseio.com/users/");
+
+    // this uses AngularFire to create the synchronized array
+    return $firebaseArray(ref);
+  }
+]);
+
+app.config(function($routeProvider) {
+  $routeProvider
+
+    // route for the home page
+    .when('/', {
+      templateUrl : 'views/main.html',
+      controller  : 'ChatCtrl'
+    })
+
+    .when('/about', {
+      templateUrl : 'views/about.html',
+      controller  : 'AboutCtrl'
+    })
+
+    .when('/users', {
+      templateUrl : 'views/users.html',
+      controller  : 'UsersCtrl'
+    })
+
+    // route for the contact page
+    .when('/contact', {
+      templateUrl : 'views/contact.html',
+      controller  : 'contactController'
+    });
+});
+
 app.controller("ChatCtrl", ["$scope", "chatMessages",
   // we pass our new chatMessages factory into the controller
   function($scope, chatMessages) {
+    console.log("--> ChatCtrl - Chat module loaded!");
     $scope.user = "Guest " + Math.round(Math.random() * 100);
 
-    // we add chatMessages array to the scope to be used in our ng-repeat
+    // chatMessages array to the scope to be used in our ng-repeat
     $scope.messages = chatMessages;
 
     // a method to create new messages; called by ng-submit
@@ -42,10 +78,39 @@ app.controller("ChatCtrl", ["$scope", "chatMessages",
     $scope.messages.$loaded(function() {
       if ($scope.messages.length === 0) {
         $scope.messages.$add({
-          from: "Firebase Docs",
+          from: "Market Square",
           content: "Hello world!"
         });
       }
     });
   }
 ]);
+
+app.controller("AboutCtrl", function($scope) {
+  console.log("-->AboutCtrl loaded -");
+  $scope.data = ' - 1st. semester project - use with care! all data is subject to the public';
+});
+
+app.controller("UsersCtrl", ["$scope", "users",
+  function($scope, users) {
+    console.log("-->UsersCtrl loaded -");
+    $scope.user = "undefined";
+    $scope.users = users;
+
+    $scope.addUser = function() {
+      // calling $add on a synchronized array is like Array.push(),
+      // except that it saves the changes to Firebase!
+      $scope.users.$add({
+          user: $scope.user,
+          locationX: position.coords.latitude
+        }
+      )};
+  }
+]);
+
+
+
+app.controller('contactController', function($scope) {
+  console.log("--> In contactController");
+  $scope.message = 'Contact us! JK. This is just a demo.';
+});
