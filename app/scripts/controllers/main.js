@@ -21,6 +21,7 @@ app.factory("users", ["$firebaseArray",
   function($firebaseArray) {
     var ref = new Firebase("https://marketsquare.firebaseio.com/users/");
 
+
     // this uses AngularFire to create the synchronized array
     return $firebaseArray(ref);
   }
@@ -91,18 +92,25 @@ app.controller("AboutCtrl", function($scope) {
   $scope.data = ' - 1st. semester project - use with care! all data is subject to the public';
 });
 
+// USERS CONTROLLER
 app.controller("UsersCtrl", ["$scope", "users",
   function($scope, users) {
     console.log("-->UsersCtrl loaded -");
-    $scope.user = "undefined";
+    console.log(JSON.stringify(users.length));
+    $scope.user = "Choose name";
+    $scope.id = "1";
     $scope.users = users;
+
+
 
     $scope.addUser = function() {
       // calling $add on a synchronized array is like Array.push(),
       // except that it saves the changes to Firebase!
       $scope.users.$add({
           user: $scope.user,
-          locationX: position.coords.latitude
+          id: $scope.id,
+          locationX: "testX",
+          locationY: "testY"
         }
       )};
   }
