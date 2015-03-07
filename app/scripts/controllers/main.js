@@ -59,7 +59,9 @@ app.controller("ChatCtrl", ["$scope", "chatMessages",
       // except that it saves the changes to Firebase!
       $scope.messages.$add({
         from: $scope.user,
-        content: $scope.message
+        content: $scope.message,
+        latitude: document.getElementById("latitude").value,
+        longitude: document.getElementById("longitude").value
       });
 
       // reset the message input
@@ -85,28 +87,35 @@ app.controller("AboutCtrl", function($scope) {
 
 // USERS CONTROLLER
 app.controller("UsersCtrl", ["$scope", "$firebaseArray",
-        function($scope, $firebaseArray) {
-          //CREATE A FIREBASE REFERENCE
-          var ref = new Firebase("https://marketsquare.firebaseio.com/users");
-          console.log("---> In UsersCtrl and loaded firebase reference!");
-          // GET MESSAGES AS AN ARRAY
-          $scope.users = $firebaseArray(ref);
+  function($scope, $firebaseArray) {
+		//CREATE A FIREBASE REFERENCE
+  	var ref = new Firebase("https://marketsquare.firebaseio.com/users");
+  	console.log("---> In UsersCtrl and loaded firebase reference!");
+  	// GET MESSAGES AS AN ARRAY
+    $scope.users = $firebaseArray(ref);
+    // Generate a random 4-digit pin!
+    //ADD USER METHOD
+    $scope.addUser = function(e) {
+    $scope.pin = Math.floor(Math.random()*9000) + 1000;
 
-          //ADD USER METHOD
-          $scope.addUser = function(e) {
+    $scope.users.$loaded().then(function(users) {
 
-          $scope.users.$loaded().then(function(users) {
-
-            $scope.users.$add({
-            user: $scope.user,
-            userId: users.length + 1,
-            pin: "1234"
-            });
-
-            })
-          }
+      $scope.users.$add({
+      user: $scope.user,
+      userId: users.length + 1,
+      // Store the pin in firebase
+      userPin: $scope.pin
+      });
+      // Alert the user - Give PIN!
+      alert("This is your PIN: " + $scope.pin);
+      })
+      }
+      $scope.login = function(e) {
+        alert("Login");
         }
-      ]);
+       
+      }
+    ]);
   
 
 

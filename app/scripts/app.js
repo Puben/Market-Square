@@ -31,7 +31,10 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
+  document.getElementById("latitude").value = position.coords.latitude;
+  document.getElementById("longitude").value = position.coords.longitude;
+    //x.innerHTML = "Latitude: " + position.coords.latitude +
+    //"<br>Longitude: " + position.coords.longitude;
 }
+
 

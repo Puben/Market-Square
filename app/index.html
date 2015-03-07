@@ -56,15 +56,17 @@
       <div ng-controller="UsersCtrl">
         <form ng-submit="addUser()">
           <input type="text" ng-model="user">
-          <p>{{user.userId}}</p>
-          <input type="submit" value="Add User">
+          <input type="submit" value="Add User"> 
+        </form>
+        <form ng-submit="login()">
+          <input type="text" ng-model="pin">
+          <input type="submit" value="   Login   "> 
         </form>
         <ul class="chatbox" style="width: 350px; height: 150px; overflow: auto;">
           <li ng-repeat="user in users">
-          {{ user.user }}: {{ user.locationX }}: {{user.locationY}}: {{user.userId}}
+          {{ user.user }}: {{user.userPin}}: {{user.userId}}
           </li>
         </ul>
-        <p>{{user.pin}}</p>
       </div>
       <div class="container">
       </div>
@@ -73,7 +75,8 @@
     <p>
       <button onclick="getLocation()">Try It</button>
     <div id="demo"></div>
-
+    <input type="hidden" id="latitude" />
+    <input type="hidden" id="longitude" />
     <h3>Chat:</h3>
     <div ng-controller="ChatCtrl">
       <form ng-submit="addMessage()">
@@ -82,7 +85,9 @@
       </form>
 
       <ul class="chatbox" style="width: 350px; height: 150px; overflow: auto;">
-        <li ng-repeat="message in messages">{{ message.from }}: {{ message.content }}</li>
+       <li ng-repeat="message in messages">
+       {{ message.from }} [lat: {{ message.latitude }}, long: {{ message.longitude }}]: {{ message.content }} 
+       </li>
       </ul>
     </div>
 
