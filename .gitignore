@@ -1,5 +1,6 @@
 node_modules
 node_modules.7z
 bower_components.7z
+.idea
 .tmp
 .sass-cache
