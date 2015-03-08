@@ -32,6 +32,7 @@ module.exports = function(config) {
       'bower_components/angularfire/dist/angularfire.js',
       'bower_components/geofire/dist/geofire.js',
       'bower_components/angularGeoFire/src/angularGeoFire.js',
+      'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

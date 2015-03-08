@@ -1,22 +1,23 @@
-'use strict';
-
-describe('Controller: MainCtrl', function () {
-
-  // load the controller's module
+describe('Unit: ChatCtrl', function() {
+  // Load the module with MainController
   beforeEach(module('sampleApp'));
 
-  var MainCtrl,
-    scope;
-
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  var ctrl, scope;
+  // inject the $controller and $rootScope services
+  // in the beforeEach block
+  beforeEach(inject(function($controller, $rootScope) {
+    // Create a new scope that's a child of the $rootScope
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    // Create the controller
+    ctrl = $controller('ChatCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should create $scope.greeting when calling sayHello', 
+    function() {
+      expect(scope.greeting).toBeUndefined();
+      scope.sayHello();
+      expect(scope.greeting).toEqual("Hello Ari");
   });
-});
+})

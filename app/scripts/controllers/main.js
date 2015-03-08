@@ -17,6 +17,12 @@ app.factory("chatMessages", ["$firebaseArray",
   }
 ]);
 
+app.factory('Person', function () {
+    return function Person (name) {
+      this.name = name;
+    };
+  });
+
 
 app.config(function($routeProvider) {
   $routeProvider
@@ -47,6 +53,12 @@ app.config(function($routeProvider) {
 app.controller("ChatCtrl", ["$scope", "chatMessages",
   // we pass our new chatMessages factory into the controller
   function($scope, chatMessages) {
+
+      $scope.name = "Ari";
+    $scope.sayHello = function() {
+    $scope.greeting = "Hello " + $scope.name;
+    }
+
     console.log("--> ChatCtrl - Chat module loaded!");
     $scope.user = "Guest " + Math.round(Math.random() * 100);
 
