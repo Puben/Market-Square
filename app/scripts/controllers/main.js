@@ -4,6 +4,7 @@ console.log("in main.js");
 
 // define our app and dependencies (remember to include firebase!)
 var app = angular.module("sampleApp", ["firebase", 'ngRoute']);
+var userName;
 /*
  var usserApp = angular.module("nameApp"), ["firebase"]);
  */
@@ -102,17 +103,11 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 app.run(function ($location, $window, $rootScope) {
-  $window.addEventListener('message', function(e) {
-      $rootScope.$apply(function() {
-
-        console.log($location.path());
-      });
-  });
+  
 });
 
 app.controller('RouteCtrl', function($scope) {
 
-  $scope.test = "Test";
    /** create $scope.template **/
    $scope.template={
      "about":"views/about.html",
@@ -133,9 +128,8 @@ app.controller("ChatCtrl", ["$scope", "chatMessages",
   function($scope, chatMessages) {
     // For the first test case!
 
-    console.log("--> ChatCtrl - Chat module loaded!");
-    $scope.user = "Guest " + Math.round(Math.random() * 100);
-    $scope.userLength = $scope.user.length;
+    console.log("--> ChatCtrl - Chat module loaded!" + userName);
+    $scope.user = userName;
     $scope.message = $scope.user;
 
     // chatMessages array to the scope to be used in our ng-repeat
@@ -216,7 +210,7 @@ app.controller("SessionCtrl", ["$scope", "$firebaseObject",
 
 // USERS CONTROLLER
 app.controller("UsersCtrl", ["$scope", "$firebaseArray", 
-  function($scope, $firebaseArray, ArrayWithSum) {
+  function($scope, $firebaseArray) {
 		//CREATE A FIREBASE REFERENCE
 
   	var ref = new Firebase("https://marketsquare.firebaseio.com/users");
@@ -225,7 +219,7 @@ app.controller("UsersCtrl", ["$scope", "$firebaseArray",
   	console.log("---> In UsersCtrl and loaded firebase reference!");
   	// GET MESSAGES AS AN ARRAY
     $scope.users = $firebaseArray(ref);
-            var name = $scope.name;
+    var name = $scope.name;
 
 
 
@@ -239,7 +233,7 @@ app.controller("UsersCtrl", ["$scope", "$firebaseArray",
 
         var userRef = new Firebase("https://marketsquare.firebaseio.com/users/"+$scope.name);
         $scope.user = $firebaseArray(userRef);
-        console.log(name);
+        console.log(userName);
         $scope.user.$add({userId: $scope.id, userPin: $scope.pin, active: true});
       // Alert the user - Give PIN!
       alert("This is your PIN: " + $scope.pin + "This is your ID:" + $scope.id);
@@ -249,17 +243,20 @@ app.controller("UsersCtrl", ["$scope", "$firebaseArray",
 
       $scope.login = function(e) {
         $scope.users.$loaded().then(function(users) {
+          userName = $scope.name;
+          console.log(userName);
           try {
-        $scope.url = angular.element(document.location.href='/#/chat');}
+          $scope.url = angular.element(document.location.href='/#/chat');
+          name = $scope.name;
+
+      }
       catch(err) {
-     console.log("---> Loaded the chat module : Expected error! No mitigation?")
+     console.log("---> Loaded the chat module : Expected error! No mitigation?"+ $scope.name);
       }
 
-          
           });
 
         }
-       
       }
     ]);
 
