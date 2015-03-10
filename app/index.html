@@ -31,6 +31,7 @@
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
+  <base href="/#/">
   <!-- endbuild -->
 
 </head>
@@ -47,56 +48,9 @@
     <h1><i class="icon-globe"></i> Market Square</h1>
     <h2><a target="_blank" href="https://www.firebase.com/?utm_source=geofire">powered by <strong>Firebase</strong></a></h2>
   </header>
+<div ng-controller="RouteCtrl">
+  <div ng-view='uirouter.html'> 
 
-  <section class="content">
-    <h3>Market Square?</h3>
-    <a target="_blank" href="http://kea.dk">KEA</a>
-    <div ng-controller="AboutCtrl">
-     <p> <a href="http://kea.dk"> </a>{{data}}</p>
-      <h3>User:</h3>
-      <div ng-controller="UsersCtrl">
-        <form ng-submit="addUser()">
-          <input type="text" ng-model="user">
-          <input type="submit" value="Add User"> 
-        </form>
-        <form ng-submit="login()">
-          <input type="text" ng-model="pin">
-          <input type="submit" value="   Login   "> 
-        </form>
-        <ul class="chatbox" style="width: 350px; height: 150px; overflow: auto;">
-          <li ng-repeat="user in users">
-          {{ user.user }}: {{user.userPin}}: {{user.userId}}
-          </li>
-        </ul>
-      </div>
-      <div class="container">
-      </div>
-    </div>
-    Click the button to get your coordinates.
-    <p>
-      <button onclick="getLocation()">Try It</button>
-    <div id="demo"></div>
-    <input type="hidden" id="latitude" />
-    <input type="hidden" id="longitude" />
-    <h3>Chat:</h3>
-    <div ng-controller="ChatCtrl">
-      <form ng-submit="addMessage()">
-        <input type="text" ng-model="message">
-        <input type="submit" value="Add Message">
-      </form>
-
-      <ul class="chatbox" style="width: 350px; height: 150px; overflow: auto;">
-       <li ng-repeat="message in messages">
-       {{ message.from }} [lat: {{ message.latitude }}, long: {{ message.longitude }}]: {{ message.content }} 
-       </li>
-      </ul>
-    </div>
-
-    <h3>Market Square?</h3>
-
-
-
-  </section>
 
 </article>
 

@@ -116,7 +116,7 @@ html, body, #map-canvas {
     right: 0px;
     bottom: 0px;
     z-index: 1000;
-    width: 300px;
+    width: 450px;
 }
 
 #sidebar header {

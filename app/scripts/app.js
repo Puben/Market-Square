@@ -55,21 +55,21 @@ function initializeMap() {
 }
 
 */
-/*function getLocation() {
+function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
-*/
-/*function showPosition(position) {
+
+function showPosition(position) {
   document.getElementById("latitude").value = position.coords.latitude;
   document.getElementById("longitude").value = position.coords.longitude;
     //x.innerHTML = "Latitude: " + position.coords.latitude +
     //"<br>Longitude: " + position.coords.longitude;
 }
-*/
+
 /* Adds a marker for the inputted vehicle to the map */
 /*function createElementMarker(element, elementColor) {
   var marker = new google.maps.Marker({

@@ -31,7 +31,6 @@
     "commit": "4010aa343a39240b76c2162d0218800ceaf94faa"
   },
   "_source": "git://github.com/mikepugh/AngularGeoFire.git",
-  "_target": "~3.0.0",
-  "_originalSource": "angularGeoFire",
-  "_direct": true
+  "_target": "3.0.0",
+  "_originalSource": "angularGeoFire"
 }
