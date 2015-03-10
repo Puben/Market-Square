@@ -43,10 +43,12 @@
 <div id="map-canvas"></div>
 <!-- SIDE BAR -->
 <div id="sidebar-wrapper"></div>
-<article id="sidebar" class="animated bounceInUp">
+<article id="sidebar" style="overflow: auto;" class="animated bounceInUp">
   <header>
     <h1><i class="icon-globe"></i> Market Square</h1>
     <h2><a target="_blank" href="https://www.firebase.com/?utm_source=geofire">powered by <strong>Firebase</strong></a></h2>
+    <input type="hidden" id="latitude" />
+    <input type="hidden" id="longitude" />
   </header>
 <div ng-controller="RouteCtrl">
   <div ng-view='uirouter.html'> 
