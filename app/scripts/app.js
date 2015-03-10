@@ -34,7 +34,12 @@ function createMarker(latitude, longitude){
 	map : map
     });
 }
-
+/*
+var rootRef = new Firebase('https://marketsquare.firebaseio.com/');
+var adsRef = rootRef.child("ads");
+layersRef.on('child_added', addChild);
+layersRef.on('child_removed', redraw);
+*/
 
 /*      // Create a draggable circle centered on the map
   var circle = new google.maps.Circle({

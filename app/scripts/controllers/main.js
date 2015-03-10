@@ -187,14 +187,10 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
            $scope.ads.$add(
                {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: document.getElementById("latitude").value, longitude: document.getElementById("longitude").value});
           });
-      };
-      $scope.makeMarker = function(e) {
-	  $scope.ads.$loaded().then(function(ads) {
-	      console.log("make marker");
+	  console.log("make marker");
 	      var userLatlng = new google.maps.LatLng(document.getElementById("latitude").value,document.getElementById("longitude").value);
 	      console.log(userLatlng);
 	      createMarker(document.getElementById("latitude").value,document.getElementById("longitude").value);
-	  });
       };
    } ]);
 
