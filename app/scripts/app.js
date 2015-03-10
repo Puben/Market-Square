@@ -57,6 +57,7 @@ function initializeMap() {
 */
 function getLocation() {
     if (navigator.geolocation) {
+	console.log("sending location from app.js");
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
@@ -66,6 +67,7 @@ function getLocation() {
 function showPosition(position) {
   document.getElementById("latitude").value = position.coords.latitude;
   document.getElementById("longitude").value = position.coords.longitude;
+    console.log("here is your lattitude from app.js " + document.getElementById("latitude").value);
     //x.innerHTML = "Latitude: " + position.coords.latitude +
     //"<br>Longitude: " + position.coords.longitude;
 }

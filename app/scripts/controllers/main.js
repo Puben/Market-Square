@@ -162,7 +162,7 @@ app.controller("ChatCtrl", ["$scope", "chatMessages",
 
 app.controller("AboutCtrl", function($scope) {
   console.log("-->AboutCtrl loaded -");
-  $scope.data = ' - 1st. semester project - use with care! all data is subject to the public';
+  $scope.data = ' - 1st. semester project - use with care! all data is subject to the public. \r\n\rFor optimized use, let your browser get your geolocation. Your browser will ask for it when you click "Login". The idea about getting this information from you is, in future solutions, to let you connect with your local area, create groups and ads. Features to show/hide/delete/create your location is to be implemented in some way (and other features as well).';
 });
 
 // ADS CONTROLLER
@@ -172,20 +172,23 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
     //CREATE A FIREBASE REFERENCE
     var ref = new Firebase("https://marketsquare.firebaseio.com/ads");
 
-    console.log("---> In AdsCtrl and loaded firebase reference!");
     // GET MESSAGES AS AN ARRAY 
     $scope.ads = $firebaseArray(ref);
     $scope.adUser = userName;
     $scope.adName = "Some stuff";
     $scope.adDescription = "Some description";
-    $scope.adId = "TBD";
+      $scope.adId = "TBD";
+              
+      
 
+    console.log("---> In AdsCtrl and loaded firebase reference!" + $scope.adUser);
 
       $scope.newAd = function(e) {
           $scope.ads.$loaded().then(function(ads) {
            $scope.adId = $scope.ads.length + 1; 
             console.log($scope.adId);
             console.log("Before ad is added");
+      console.log(document.getElementById("latitude").value);
 
            $scope.ads.$add(
             {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription });
@@ -235,36 +238,38 @@ app.controller("UsersCtrl", ["$scope", "$firebaseArray",
 
 
 
-    //ADD USER METHOD
-    $scope.addUser = function(e) {
-    $scope.pin = Math.floor(Math.random()*9000) + 1000;
+      //ADD USER METHOD
+      $scope.addUser = function(e) {
+	  $scope.pin = Math.floor(Math.random()*9000) + 1000;
 
 
-     $scope.users.$loaded().then(function(users) {
-        $scope.id = $scope.users.length + 1; 
+	  $scope.users.$loaded().then(function(users) {
+              $scope.id = $scope.users.length + 1; 
 
-        var userRef = new Firebase("https://marketsquare.firebaseio.com/users/"+$scope.name);
-        $scope.user = $firebaseArray(userRef);
-        console.log(userName);
-        $scope.user.$add({userId: $scope.id, userPin: $scope.pin, active: true});
-      // Alert the user - Give PIN!
-      alert("This is your PIN: " + $scope.pin + "This is your ID:" + $scope.id);
-      });
-      console.log("User created! " + $scope.name);
+              var userRef = new Firebase("https://marketsquare.firebaseio.com/users/"+$scope.name);
+              $scope.user = $firebaseArray(userRef);
+              console.log(userName);
+	      //longitude: document.getElementById("longitude").value
+              $scope.user.$add({userId: $scope.id, userPin: $scope.pin, active: true});
+	      // Alert the user - Give PIN!
+	      alert("This is your PIN: " + $scope.pin + "This is your ID:" + $scope.id);
+	  });
+	  console.log("User created! " + $scope.name);
       };
 
       $scope.login = function(e) {
-        $scope.users.$loaded().then(function(users) {
-          userName = $scope.name;
-          console.log(userName);
-          try {
-          $scope.url = angular.element(document.location.href='/#/chat');
-          name = $scope.name;
+          $scope.users.$loaded().then(function(users) {
+              userName = $scope.name;
+              console.log(userName);
+	      
+              try {
+		  $scope.url = angular.element(document.location.href='/#/chat');
+		  name = $scope.name;
 
-      }
-      catch(err) {
-     console.log("---> Loaded the chat module : Expected error! No mitigation?"+ $scope.name);
-      }
+	      }
+	      catch(err) {
+		  console.log("---> Loaded the chat module : Expected error! No mitigation?"+ $scope.name);
+	      }
 
           });
 
