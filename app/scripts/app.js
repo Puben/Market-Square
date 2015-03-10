@@ -28,7 +28,12 @@ function initializeMap() {
     });
 };
 
-
+function createMarker(latitude, longitude){
+    var marker = new google.maps.Marker({
+	position : new google.maps.LatLng(latitude, longitude),
+	map : map
+    });
+}
 
 
 /*      // Create a draggable circle centered on the map
