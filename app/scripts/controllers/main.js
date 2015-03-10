@@ -191,7 +191,7 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
       console.log(document.getElementById("latitude").value);
 
            $scope.ads.$add(
-            {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription });
+               {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: document.getElementById("latitude").value, longitude: document.getElementById("longitude").value});
 
           });
         }
