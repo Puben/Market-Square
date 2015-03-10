@@ -1,0 +1,21 @@
+
+<div ng-controller="UsersCtrl">
+       <div ng-hide="invisible">
+       <h3>User:</h3>
+
+        <form ng-submit="addUser()">
+          <input type="text" ng-model="name">
+          <input type="submit" value="Add User"> 
+        </form>
+
+        <form ng-submit="login()" >
+          <input type="text" ng-model="pin">
+          <input type="submit" ng-click="invisible=!visible; showme=true;" value="   Login   "> 
+        </form>
+
+      </div>
+      <input type="text" ng-model="name" ng-readonly="true" ng-show="showme">
+      <p></p>
+      <div type="text" value="chat" ng-readonly="true" ng-show="showme">
+      </div>
+</div>

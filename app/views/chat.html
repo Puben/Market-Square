@@ -1,0 +1,16 @@
+
+
+  	<form ng-controller ="ChatCtrl" ng-submit="addMessage()">
+     <p><h5>Velkommen, {{user}}</h5></p>
+
+      <h3>Chat: </h3> 
+
+        <input type="text" ng-model="message">
+        <input type="submit" value="Add Message">
+      </form>
+
+      <ul class="chatbox" style="width: 350px; height: 150px; overflow: auto;">
+       <li ng-repeat="message in messages">
+       {{ message.from }} : {{ message.content }} 
+       </li>
+      </ul>
