@@ -1,12 +1,15 @@
 
+  	
+    <div ng-controller ="ChatCtrl">
 
-  	<div ng-controller ="ChatCtrl">
   	<div class="alert bg-success" >
      <p><h5>Velkommen, {{user}}</h5></p>
 
       <h3>Chat: </h3> 
+          
       </div>
-  		<form ng-submit="addMessage()">
+      <div>
+       <form ng-submit="addMessage()">
         <input type="text" ng-model="message">
         <input type="submit" value="Add Message">
       </form>
@@ -16,6 +19,10 @@
        {{ message.from }} : {{ message.content }} 
        </li>
       </ul>
+        
+      </div>
+       
+  		
       </div>
 
      <div ng-controller ="AdsCtrl">
@@ -33,7 +40,22 @@
       </form>
 
       </div>
+      <p></p>
+     <div ng-controller ="GroupCtrl">
+     <div class="alert bg-success" >
+      <h3 ng-click="go()">Groups: </h3>
 
+      </div>
+      <form ng-submit="newGroup()">
+        <input type="text" ng-model="groupId">
+        <input type="text" ng-model="groupName">
+        <input type="text" ng-model="groupDescription">
+
+
+        <input type="submit" value="Add group">
+      </form>
+
+      </div>
 
 
 

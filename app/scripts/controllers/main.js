@@ -30,6 +30,14 @@ app.factory("ads", ["$firebaseArray",
   }
 ]);
 
+app.factory("groups", ["$firebaseArray",
+  function($firebaseArray) {
+    var ref = new Firebase("https://marketsquare.firebaseio.com/groups/");
+    // this uses AngularFire to create the synchronized array
+    return $firebaseArray(ref);
+  }
+]);
+
 // this factory returns a firebase object
 app.factory("session", ["$firebaseObject",
   function($firebaseObject) {
@@ -38,24 +46,6 @@ app.factory("session", ["$firebaseObject",
     return $firebaseObject(ref);
   }
 ]);
-
-app.factory("ArrayWithSum", function($firebaseArray) {
-  return $firebaseArray.$extend({
-    sum: function() {
-      var total = 0;
-      angular.forEach(this.$list, function(rec) {
-        total += rec.x;
-      });
-      return total;
-    }
-  });
-});
-
-app.factory('Person', function () {
-    return function Person (name) {
-      this.name = name;
-    };
-  });
 
 
 app.config(function($routeProvider, $locationProvider) {
@@ -93,7 +83,10 @@ app.config(function($routeProvider, $locationProvider) {
       templateUrl : 'views/ads.html',
       controller  : 'AdsCtrl'
     })
-    // route for the contact page
+      .when('/groups', {
+      templateUrl : 'views/groups.html',
+      controller  : 'GroupCtrl'
+    })
     .when('/contact', {
       templateUrl : 'views/contact.html',
       controller  : 'contactController'
@@ -112,7 +105,8 @@ app.controller('RouteCtrl', function($scope) {
    $scope.template={
      "about":"views/about.html",
      "login":"views/login.html",
-     "chat":"views/chat.html"
+     "chat":"views/chat.html",
+     "groups":"views/group.grml"
      //"contact":"contactus.html"
      
    }
@@ -130,7 +124,7 @@ app.controller("ChatCtrl", ["$scope", "chatMessages",
 
     console.log("--> ChatCtrl - Chat module loaded!" + userName);
     $scope.user = userName;
-    $scope.message = $scope.user;
+    $scope.message = "Type...";
 
     // chatMessages array to the scope to be used in our ng-repeat
     $scope.messages = chatMessages;
@@ -162,6 +156,8 @@ app.controller("ChatCtrl", ["$scope", "chatMessages",
 
 app.controller("AboutCtrl", function($scope) {
   console.log("-->AboutCtrl loaded -");
+
+
   $scope.data = ' - 1st. semester project - use with care! all data is subject to the public. \r\n\rFor optimized use, let your browser get your geolocation. Your browser will ask for it when you click "Login". The idea about getting this information from you is, in future solutions, to let you connect with your local area, create groups and ads. Features to show/hide/delete/create your location is to be implemented in some way (and other features as well).';
 });
 
@@ -196,6 +192,43 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
           });
         }
        
+      }
+    ]);
+
+// GROUP CONTROlleR
+app.controller("GroupCtrl", ["$scope", "$firebaseArray",
+  function($scope, $firebaseArray) {
+    var groupId; 
+    var users;
+    //CREATE A FIREBASE REFERENCE
+    var ref = new Firebase("https://marketsquare.firebaseio.com/groups");
+
+    // GET MESSAGES AS AN ARRAY 
+    $scope.groups = $firebaseArray(ref);
+    $scope.groupName = "Group test";
+    $scope.groupDescription = "Some description";
+    $scope.groupId = "TBD";
+              
+      
+
+    console.log("---> In GroupCtrl and loaded firebase reference!");
+
+      $scope.newGroup = function(e) {
+          $scope.groups.$loaded().then(function(groups) {
+           $scope.groupId = $scope.groups.length + 1; 
+            console.log($scope.groupId);
+            console.log("Before group is added");
+
+           $scope.groups.$add(
+               {groupId: $scope.groupId, name: $scope.groupName, description: $scope.groupDescription});
+
+          });
+        }
+        $scope.go = function() {
+
+    $scope.msg = 'clicked';
+    alert($scope.msg);
+   };
       }
     ]);
 

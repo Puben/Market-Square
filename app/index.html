@@ -25,6 +25,7 @@
   <script src="bower_components/geofire/dist/geofire.js"></script>
   <script src="bower_components/angularGeoFire/src/angularGeoFire.js"></script>
   <script src="bower_components/jasmine-jquery/lib/jasmine-jquery.js"></script>
+  <script src="bower_components/ng-lodash/build/ng-lodash.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- endbower -->
@@ -43,15 +44,26 @@
 <div id="map-canvas"></div>
 <!-- SIDE BAR -->
 <div id="sidebar-wrapper"></div>
+
 <article id="sidebar" style="overflow: auto;" class="animated bounceInUp">
+
+
   <header>
+
+
     <h1><i class="icon-globe"></i> Market Square</h1>
-    <h2><a target="_blank" href="https://www.firebase.com/?utm_source=geofire">powered by <strong>Firebase</strong></a></h2>
-    <input type="hidden" id="latitude" />
-    <input type="hidden" id="longitude" />
+    <h2><a target="_blank" href="https://www.firebase.com/?utm_source=geofire">powered by <strong>
+    Firebase</strong></a></h2>
+
+    <input type="hidden" class="form-control" id="latitude" />
+    <input type="hidden" class="form-control" id="longitude" />
   </header>
-<div ng-controller="RouteCtrl">
-  <div ng-view='uirouter.html'> 
+
+<div class="form-control" style="height: 900px;">
+<div ng-controller="RouteCtrl"></div>
+  <div ng-view='uirouter.html'> </div>
+</div>
+
 
 
 </article>
