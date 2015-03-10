@@ -168,16 +168,28 @@ app.controller("AboutCtrl", function($scope) {
 // ADS CONTROLLER
 app.controller("AdsCtrl", ["$scope", "$firebaseArray",
   function($scope, $firebaseArray) {
+    var adId; 
     //CREATE A FIREBASE REFERENCE
     var ref = new Firebase("https://marketsquare.firebaseio.com/ads");
 
     console.log("---> In AdsCtrl and loaded firebase reference!");
-    // GET MESSAGES AS AN ARRAY
+    // GET MESSAGES AS AN ARRAY 
     $scope.ads = $firebaseArray(ref);
+    $scope.adUser = userName;
+    $scope.adName = "Some stuff";
+    $scope.adDescription = "Some description";
+    $scope.adId = "TBD";
+
 
       $scope.newAd = function(e) {
           $scope.ads.$loaded().then(function(ads) {
-            console.log("in newAd");
+           $scope.adId = $scope.ads.length + 1; 
+            console.log($scope.adId);
+            console.log("Before ad is added");
+
+           $scope.ads.$add(
+            {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription });
+
           });
         }
        
