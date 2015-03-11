@@ -29,16 +29,13 @@ app.factory("ads", ["$firebaseArray",
 app.factory("groups", ["$firebaseArray",
   function($firebaseArray) {
     var ref = new Firebase("https://marketsquare.firebaseio.com/groups/");
-    // this uses AngularFire to create the synchronized array
     return $firebaseArray(ref);
   }
 ]);
 
-// this factory returns a firebase object
 app.factory("session", ["$firebaseObject",
   function($firebaseObject) {
     var ref = new Firebase("https://marketsquare.firebaseio.com/sessions/");
-    // this uses AngularFire to create the synchronized array
     return $firebaseObject(ref);
   }
 ]);
@@ -91,10 +88,6 @@ app.config(function($routeProvider, $locationProvider) {
 
 });
 
-app.run(function ($location, $window, $rootScope) {
-  
-});
-
 app.controller('RouteCtrl', function($scope) {
 
    /** create $scope.template **/
@@ -103,13 +96,7 @@ app.controller('RouteCtrl', function($scope) {
      "login":"views/login.html",
      "chat":"views/chat.html",
      "groups":"views/group.grml"
-     //"contact":"contactus.html"
      
-   }
-   $scope.message={
-     //"about":"Message from home template",
-     "login":"Message from login template",
-     //"contact":"Message from contact template"
    }
   });
 
@@ -168,7 +155,11 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
     $scope.ads = $firebaseArray(ref);
     $scope.adUser = userName;
     $scope.adName = "Some stuff";
-    $scope.adDescription = "Some description";
+      $scope.adDescription = "Some description";
+//      $scope.latitude = document.getElementById("latitude");
+//      $scope.longitude = document.getElementById("longitude");
+      $scope.latitude = 55.6934000;//55.6834544;
+      $scope.longitude = 12.5858016;
       $scope.adId = "TBD";
       
     console.log("---> In AdsCtrl and loaded firebase reference!" + $scope.adUser);
@@ -176,17 +167,14 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
       $scope.newAd = function(e) {
           $scope.ads.$loaded().then(function(ads) {
            $scope.adId = $scope.ads.length + 1; 
-            console.log($scope.adId);
             console.log("Before ad is added");
-      console.log(document.getElementById("latitude").value);
-
            $scope.ads.$add(
-               {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: document.getElementById("latitude").value, longitude: document.getElementById("longitude").value});
-          });
+               {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: $scope.latitude, longitude: $scope.longitude});
 	  console.log("make marker");
 	      var userLatlng = new google.maps.LatLng(document.getElementById("latitude").value,document.getElementById("longitude").value);
-	      console.log(userLatlng);
-	      drawMarker(document.getElementById("latitude").value,document.getElementById("longitude").value);
+	  console.log(userLatlng);
+	  drawMarker(document.getElementById("latitude").value,document.getElementById("longitude").value);
+          });
       };
    } ]);
 
