@@ -190,7 +190,7 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
 	  console.log("make marker");
 	      var userLatlng = new google.maps.LatLng(document.getElementById("latitude").value,document.getElementById("longitude").value);
 	      console.log(userLatlng);
-	      createMarker(document.getElementById("latitude").value,document.getElementById("longitude").value);
+	      drawMarker(document.getElementById("latitude").value,document.getElementById("longitude").value);
       };
    } ]);
 

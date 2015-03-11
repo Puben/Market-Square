@@ -28,18 +28,19 @@ function initializeMap() {
     });
 };
 
-function createMarker(latitude, longitude){
+function drawMarker(latitude, longitude){
     var marker = new google.maps.Marker({
 	position : new google.maps.LatLng(latitude, longitude),
 	map : map
     });
 }
-/*
+
 var rootRef = new Firebase('https://marketsquare.firebaseio.com/');
 var adsRef = rootRef.child("ads");
-layersRef.on('child_added', addChild);
-layersRef.on('child_removed', redraw);
-*/
+
+adsRef.on('child_added', function(snapshot) {
+    drawMarker(snapshot.val().latitude, snapshot.val().longitude);
+    });
 
 /*      // Create a draggable circle centered on the map
   var circle = new google.maps.Circle({
