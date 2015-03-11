@@ -156,20 +156,26 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
     $scope.adUser = userName;
     $scope.adName = "Some stuff";
       $scope.adDescription = "Some description";
-//      $scope.latitude = document.getElementById("latitude");
-//      $scope.longitude = document.getElementById("longitude");
-      $scope.latitude = 55.6934000;//55.6834544;
-      $scope.longitude = 12.5858016;
       $scope.adId = "TBD";
       
     console.log("---> In AdsCtrl and loaded firebase reference!" + $scope.adUser);
 
       $scope.newAd = function(e) {
+
+      var ranLat = '55.6'+Math.floor((Math.random() * 9) + 1)+''+Math.floor((Math.random() * 9) + 1)+'000';
+      var ranLog = '12.47'+Math.floor((Math.random() * 9) + 1)+''+Math.floor((Math.random() * 9) + 1)+'016';
+
+      $scope.randomLat = ranLat;
+      $scope.randomLog = ranLog;
+    
+      console.log($scope.randomLat);
+      console.log($scope.randomLog);
+
           $scope.ads.$loaded().then(function(ads) {
            $scope.adId = $scope.ads.length + 1; 
             console.log("Before ad is added");
            $scope.ads.$add(
-               {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: $scope.latitude, longitude: $scope.longitude});
+               {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: $scope.randomLat, longitude: $scope.randomLog});
 	  console.log("make marker");
 	      var userLatlng = new google.maps.LatLng(document.getElementById("latitude").value,document.getElementById("longitude").value);
 	  console.log(userLatlng);
