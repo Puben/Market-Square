@@ -5,10 +5,6 @@ console.log("in main.js");
 // define our app and dependencies (remember to include firebase!)
 var app = angular.module("sampleApp", ["firebase", 'ngRoute']);
 var userName;
-/*
- var usserApp = angular.module("nameApp"), ["firebase"]);
- */
-
 
 
 // this factory returns a synchronized array of chat messages
@@ -174,9 +170,7 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
     $scope.adName = "Some stuff";
     $scope.adDescription = "Some description";
       $scope.adId = "TBD";
-              
       
-
     console.log("---> In AdsCtrl and loaded firebase reference!" + $scope.adUser);
 
       $scope.newAd = function(e) {
@@ -188,12 +182,13 @@ app.controller("AdsCtrl", ["$scope", "$firebaseArray",
 
            $scope.ads.$add(
                {adId: $scope.adId, adUser: userName, adName: $scope.adName, adDesc: $scope.adDescription, latitude: document.getElementById("latitude").value, longitude: document.getElementById("longitude").value});
-
           });
-        }
-       
-      }
-    ]);
+	  console.log("make marker");
+	      var userLatlng = new google.maps.LatLng(document.getElementById("latitude").value,document.getElementById("longitude").value);
+	      console.log(userLatlng);
+	      drawMarker(document.getElementById("latitude").value,document.getElementById("longitude").value);
+      };
+   } ]);
 
 // GROUP CONTROlleR
 app.controller("GroupCtrl", ["$scope", "$firebaseArray",

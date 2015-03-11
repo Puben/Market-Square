@@ -4937,6 +4937,8 @@ a.thumbnail.active {
   color: #3c763d;
   background-color: #dff0d8;
   border-color: #d6e9c6;
+  box-shadow: 10px 2px 3px rgba(0,0,0,0.2);
+
 }
 .alert-success hr {
   border-top-color: #c9e2b3;
