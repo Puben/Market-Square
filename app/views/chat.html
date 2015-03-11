@@ -30,3 +30,18 @@
 
       </form>
       </div>
+       <div ng-controller ="GroupCtrl">
+     <div class="alert bg-success" >
+      <h3 ng-click="go()">Groups: </h3>
+
+      </div>
+      <form ng-submit="newGroup()">
+        <input type="text" ng-model="groupId">
+        <input type="text" ng-model="groupName">
+        <input type="text" ng-model="groupDescription">
+
+
+        <input type="submit" value="Add group">
+      </form>
+
+      </div>
